@@ -1,4 +1,6 @@
-﻿using System;
+﻿using com.sweet.LogicaNegocio;
+using MahApps.Metro.Controls;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,17 +13,107 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Configuration;
+using com.sweet.Entidades;
+using com.tantaros.varios;
 
 namespace DescuentosColaboradores
 {
     /// <summary>
     /// Lógica de interacción para MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow
     {
+
+
+        ColaboradorBOL bOL = new ColaboradorBOL();
+       
         public MainWindow()
         {
             InitializeComponent();
+            dgTraspasos.ItemsSource = bOL.GetTraspasoGrid();
+            cmbArticulos.ItemsSource = bOL.Articulos().Tables[0].DefaultView;
+            cmbArticulos.DisplayMemberPath = bOL.Articulos().Tables[0].Columns["CODARTICULO"].ToString();
+            cmbArticulos.DisplayMemberPath = bOL.Articulos().Tables[0].Columns["DESCRIPCION"].ToString();
+            
+
+        }
+
+        private void btnCargarDescuentos_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnSalir_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+            Environment.ExitCode = 0;
+        }
+
+        void BuscarColaborador()
+        {            
+            EColaborador colaborador = new EColaborador();
+            colaborador = bOL.GetColaboradorID(int.Parse(txtIdColaborador.Text.ToString()));
+            lblColaborador.Content = colaborador.NombreCorto.ToString();
+            txtNombreLargo.Text = colaborador.NombreLargo.ToString();
+
+        }
+
+        private void DataGridRow_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            flyDescuento.IsOpen = true;
+            btnSalir.IsEnabled = false;
+        }
+
+        private void btnEnviar_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        private void flyDescuento_ClosingFinished(object sender, RoutedEventArgs e)
+        {
+            btnSalir.IsEnabled = true;
+            borrarDatosFly();
+        }
+
+        private void txtIdColaborador_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.Key == Key.Return || e.Key == Key.Tab)
+            {
+                MessageBox.Show("Usted ha escrito : " + txtIdColaborador.Text.ToString());
+                BuscarColaborador();
+            }
+        }
+
+        void borrarDatosFly()
+        {
+            lblColaborador.Content = "";
+            txtIdColaborador.Text = "";
+        }
+
+        private void btnSalirFly_Click(object sender, RoutedEventArgs e)
+        {
+            flyDescuento.IsOpen = false;
+        }
+
+        private void btnGuardarDescuento_Click(object sender, RoutedEventArgs e)
+        {
+            ETraspaso traspaso = (ETraspaso)dgTraspasos.SelectedItem;
+            com.tantaros.varios.Arreglos arreglos = new Arreglos();
+            string codarticulo = ((System.Data.DataRowView)cmbArticulos.SelectedItem).Row.ItemArray[0].ToString();
+            string[] prueba1 = bOL.ItemsKit(int.Parse(codarticulo));
+            string[] prueba2 = bOL.ItemsTraspaso(traspaso.Numero);
+            MessageBox.Show("Prueba " + traspaso.Referencia.ToString() + " Array 1 : " + prueba1.Count() + "Array 2 : " + prueba2.Count());
+
+            if (arreglos.ComparerArray(prueba1, prueba2))
+            {
+                MessageBox.Show("Son Iguales");
+            }
+            else
+            {
+                MessageBox.Show("No son Iguales");
+            }
+
         }
     }
 }

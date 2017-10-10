@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="com.sweet.AccesoDatos.ColaboradoresDAL">
+    <Position X="6" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAABAAAAA=</HashCode>
+      <FileName>AccesoDatos\ColaboradoresDAL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="com.sweet.Entidades.EColaborador">
+    <Position X="0.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAQAAAAAAgA=</HashCode>
+      <FileName>Entidades\EColaborador.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="com.sweet.Entidades.ETraspaso">
+    <Position X="6" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAgAAAAAAEAAAAAAAARAAAAQAQAAAAGAAABAAQ=</HashCode>
+      <FileName>Entidades\ETraspaso.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="com.sweet.LogicaNegocio.ColaboradorBOL">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAACAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>LogicaNegocio\ColaboradorBOL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
