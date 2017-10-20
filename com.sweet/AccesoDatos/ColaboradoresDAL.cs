@@ -71,7 +71,8 @@ namespace com.sweet.AccesoDatos
         public double getPrecioArticulo(int codigo, double descuento )
         {
             double precio = 0.00;
-            string sql = "SELECT DESCRIPCION FROM dbo.TRASPALMACEN WHERE numero = " + codigo;
+            double porcentaje;
+            string sql = "SELECT VALOR FROM dbo.PRECIOSVENTA WHERE CODARTICULO = " + codigo;
             try
             {
                 using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDescuentoLocal"].ToString()))
@@ -79,13 +80,23 @@ namespace com.sweet.AccesoDatos
                     conn.Open();
                     using (SqlCommand cmd = new SqlCommand(sql, conn))
                     {
+                        if(descuento == 50)
+                        {
+                            porcentaje = 0.5;
+                        }else
+                        {
+                            porcentaje = 1.0;
+                        }
+                        precio = Convert.ToDouble(cmd.ExecuteScalar());
+                        return precio * porcentaje;
+                        /*
                         SqlDataReader data = cmd.ExecuteReader();
                         while (data.Read())
                         {
-                            //resultado.Add(Convert.ToString(data["DESCRIPCION"]));
+                            precio = Convert.ToDouble(data["VALOR"]);
                         };
+                        */
                     }
-                    return precio;
                 }
             }
             catch (Exception)
@@ -93,7 +104,7 @@ namespace com.sweet.AccesoDatos
                 return 0.00;
             }
         }
-    }
+    
 
         public string[] getItemsTraspaso(int codigo)
         {

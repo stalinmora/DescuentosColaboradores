@@ -45,5 +45,9 @@ namespace com.sweet.LogicaNegocio
         {
             return dAL.getItemsTraspaso(codigo);
         }
+        public double PrecioDescuento(int codigo, double descuento)
+        {
+            return dAL.getPrecioArticulo(codigo, descuento);
+        }
     }
 }
